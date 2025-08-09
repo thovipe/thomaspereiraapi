@@ -37,7 +37,7 @@ public class SellerLoader implements ApplicationRunner {
             line = reader.readLine();
         }
 
-        System.out.println("List size:" + sellerService.getList().size());
+        System.out.println("List size: " + sellerService.getList().size());
 
     }
 }

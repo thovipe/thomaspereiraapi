@@ -1,6 +1,7 @@
 package br.edu.infnet.thomaspereiraapi.model.service;
 
 import br.edu.infnet.thomaspereiraapi.model.domain.Seller;
+import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.InvalidSellerExpection;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +18,9 @@ public class SellerService implements CrudService<Seller, Integer>{
 
     @Override
     public Seller add(Seller seller) {
+        if(seller.getName() == null || seller.getName().trim().isEmpty()) {
+            throw new InvalidSellerExpection("Seller name is required");
+        }
         seller.setSellerId(nextId.getAndIncrement());
         sellers.put(seller.getSellerId(), seller);
         return seller;
@@ -33,14 +37,11 @@ public class SellerService implements CrudService<Seller, Integer>{
     }
 
     @Override
-    public Seller get() {
-        Seller seller = new Seller();
-
-        seller.setName("SuperStore");
-        seller.setSellerId(1);
-        seller.setIsActive(true);
-        seller.setEmail("admin@superstore.com");
-
+    public Seller getById(Integer integer) {
+        if (integer == null || integer <= 0) {
+            throw new IllegalArgumentException("Invalid Id, id needs to be greater than 0 or not null");
+        }
+        Seller seller = sellers.get(integer);
         return seller;
     }
 
