@@ -1,5 +1,6 @@
 package br.edu.infnet.thomaspereiraapi.model.domain;
 
+import br.edu.infnet.thomaspereiraapi.model.service.SellerService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,13 @@ import java.io.FileReader;
 
 @Component
 public class SellerLoader implements ApplicationRunner {
+
+    private final SellerService sellerService;
+
+    public SellerLoader(SellerService sellerService){
+        this.sellerService = sellerService;
+    }
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
@@ -24,9 +32,12 @@ public class SellerLoader implements ApplicationRunner {
             seller.setName(fields[1]);
             seller.setEmail(fields[2]);
             seller.setIsActive(Boolean.valueOf(fields[3]));
+            sellerService.add(seller);
             System.out.println(seller);
             line = reader.readLine();
         }
+
+        System.out.println("List size:" + sellerService.getList().size());
 
     }
 }

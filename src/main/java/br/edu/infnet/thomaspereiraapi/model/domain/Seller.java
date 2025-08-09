@@ -4,7 +4,7 @@ public class Seller {
 
     private String name;
     private String email;
-    private int sellerId;
+    private Integer sellerId;
     private boolean isActive;
 
     public Seller() {
@@ -26,11 +26,11 @@ public class Seller {
         this.email = email;
     }
 
-    public int getSellerId() {
+    public Integer getSellerId() {
         return this.sellerId;
     }
 
-    public void setSellerId(int sellerId) {
+    public void setSellerId(Integer sellerId) {
         this.sellerId = sellerId;
     }
 

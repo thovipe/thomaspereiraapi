@@ -6,7 +6,7 @@ public class Costumer {
     private String email;
     private String phone;
     private Address address;
-    private int costumerId;
+    private Integer costumerId;
 
     public String getName() {
         return this.name;
@@ -40,12 +40,17 @@ public class Costumer {
         this.address = address;
     }
 
-    public int getCostumerId() {
+    public Integer getCostumerId() {
         return this.costumerId;
     }
 
-    public void setCostumerId(int costumerId) {
+    public void setCostumerId(Integer costumerId) {
         this.costumerId = costumerId;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("costumerId: %d - name: %s - email: %s - phone: %s - address: %s", this.costumerId, this.name, this.email, this.phone, this.address);
     }
 
 }

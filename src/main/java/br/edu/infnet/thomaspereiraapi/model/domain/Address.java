@@ -3,7 +3,7 @@ package br.edu.infnet.thomaspereiraapi.model.domain;
 public class Address {
 
     private String streetName;
-    private String neighborhood;
+    private String district;
     private String city;
     private String state;
     private String zipCode;
@@ -19,12 +19,12 @@ public class Address {
         this.streetName = streetName;
     }
 
-    public String getNeighborhood() {
-        return this.neighborhood;
+    public String getDistrict() {
+        return this.district;
     }
 
-    public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood;
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getCity() {
@@ -75,5 +75,18 @@ public class Address {
         this.number = number;
     }
 
+    @Override
+    public String toString() {
+        return "Address{" +
+                "streetName='" + streetName + '\'' +
+                ", number=" + number +
+                ", district='" + district + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", country='" + country + '\'' +
+                ", complement='" + complement + '\'' +
+                '}';
+    }
 }
 

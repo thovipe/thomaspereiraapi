@@ -1,3 +1,3 @@
 1;SuperStore;admin@superstore.com;true
 2;MegaStore;admin@megastore.com;false
-3;HiperStore;admin@hiperstore.com;false
+3;HiperStore;admin@hiperstore.com;true

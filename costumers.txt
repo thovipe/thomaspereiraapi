@@ -1,0 +1,20 @@
+1;Gilberto Braga;gilberto@braga.com;21990090921;Rua Silva e Goes;141;Centro;Rio de Janeiro;Rio de Janeiro;20002-080;Brasil;Loja 19
+2;Maria Silva;maria.silva@email.com;11987654321;Av. Paulista;1578;Bela Vista;São Paulo;São Paulo;01310-200;Brasil;Loja 02
+3;João Santos;joao.santos@gmail.com;85998765432;Rua do Comércio;89;Aldeota;Fortaleza;Ceará;60150-160;Brasil;Loja 07
+4;Ana Costa;ana.costa@hotmail.com;47999887766;Rua XV de Novembro;456;Centro;Blumenau;Santa Catarina;89010-000;Brasil;Loja 12
+5;Pedro Oliveira;pedro.oliveira@yahoo.com;62987123456;Av. Goiás;234;Setor Central;Goiânia;Goiás;74023-010;Brasil;Loja 05
+6;Carla Pereira;carla.pereira@outlook.com;31976543210;Rua da Bahia;567;Centro;Belo Horizonte;Minas Gerais;30112-000;Brasil;Loja 03
+7;Roberto Lima;roberto.lima@empresa.com;71988776655;Av. Sete de Setembro;890;Pelourinho;Salvador;Bahia;40026-000;Brasil;Loja 14
+8;Fernanda Alves;fernanda.alves@uol.com.br;51999554433;Rua dos Andradas;123;Centro Histórico;Porto Alegre;Rio Grande do Sul;90020-000;Brasil;Loja 08
+9;Carlos Mendes;carlos.mendes@bol.com.br;81997788990;Av. Boa Viagem;678;Boa Viagem;Recife;Pernambuco;51111-000;Brasil;Loja 11
+10;Juliana Ferreira;juliana.ferreira@terra.com.br;65999887744;Av. Fernando Corrêa;345;Centro;Cuiabá;Mato Grosso;78005-000;Brasil;Loja 06
+11;Marcos Rodrigues;marcos.rodrigues@ig.com.br;27998887766;Rua Sete de Setembro;234;Centro;Vitória;Espírito Santo;29010-000;Brasil;Loja 15
+12;Patrícia Sousa;patricia.sousa@globo.com;83987654321;Av. Epitácio Pessoa;456;Tambaú;João Pessoa;Paraíba;58039-000;Brasil;Loja 09
+13;André Barbosa;andre.barbosa@r7.com;84999776655;Av. Rio Branco;789;Cidade Alta;Natal;Rio Grande do Norte;59025-000;Brasil;Loja 17
+14;Luciana Martins;luciana.martins@superig.com.br;98988776644;Rua Grande;567;Centro;São Luís;Maranhão;65010-440;Brasil;Loja 04
+15;Rafael Gomes;rafael.gomes@zipmail.com.br;96999665544;Av. Presidente Vargas;123;Centro;Macapá;Amapá;68900-070;Brasil;Loja 20
+16;Vanessa Cardoso;vanessa.cardoso@click21.com.br;95988776655;Av. Ene Garcez;890;Aeroporto;Boa Vista;Roraima;69304-000;Brasil;Loja 13
+17;Thiago Nunes;thiago.nunes@designmail.com.br;67999887766;Rua 14 de Julho;345;Centro;Campo Grande;Mato Grosso do Sul;79002-000;Brasil;Loja 01
+18;Camila Ribeiro;camila.ribeiro@speedymail.com;68987654321;Av. Ceará;678;Centro;Rio Branco;Acre;69900-000;Brasil;Loja 16
+19;Diego Araújo;diego.araujo@netscape.com;69999776655;Av. Jorge Teixeira;234;Nova Porto Velho;Porto Velho;Rondônia;76820-000;Brasil;Loja 10
+20;Larissa Teixeira;larissa.teixeira@protonmail.com;63988776644;Quadra 104 Norte;567;Plano Diretor Norte;Palmas;Tocantins;77001-000;Brasil;Loja 18

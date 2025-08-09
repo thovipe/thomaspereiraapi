@@ -2,13 +2,15 @@ package br.edu.infnet.thomaspereiraapi.model.domain;
 
 import java.net.URI;
 
-public class PaymentProvider {
+public abstract class PaymentProvider {
 
     private String name;
     private URI url;
-    private int providerId;
+    private Integer providerId;
     private String providerKey;
     private boolean isActive;
+
+    public abstract String getProviderInfo();
 
     public String getName() {
         return this.name;
@@ -26,11 +28,11 @@ public class PaymentProvider {
         this.url = url;
     }
 
-    public int getProviderId() {
+    public Integer getProviderId() {
         return this.providerId;
     }
 
-    public void setProviderId(int providerId) {
+    public void setProviderId(Integer providerId) {
         this.providerId = providerId;
     }
 

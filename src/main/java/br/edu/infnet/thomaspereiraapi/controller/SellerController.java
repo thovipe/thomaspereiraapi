@@ -1,6 +1,7 @@
 package br.edu.infnet.thomaspereiraapi.controller;
 
 import br.edu.infnet.thomaspereiraapi.model.domain.Seller;
+import br.edu.infnet.thomaspereiraapi.model.service.SellerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,16 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/sellers")
 public class SellerController {
 
-    @GetMapping("/test")
+    private final SellerService sellerService;
+
+    public SellerController(SellerService sellerService){
+        this.sellerService = sellerService;
+    }
+
+    @GetMapping
     public Seller getSellerInfo() {
-
-        Seller seller = new Seller();
-
-        seller.setName("SuperStore");
-        seller.setSellerId(1);
-        seller.setIsActive(true);
-        seller.setEmail("admin@superstore.com");
-
-        return seller;
+        return sellerService.get();
     }
 }
