@@ -2,10 +2,9 @@ package br.edu.infnet.thomaspereiraapi.controller;
 
 import br.edu.infnet.thomaspereiraapi.model.domain.Seller;
 import br.edu.infnet.thomaspereiraapi.model.service.SellerService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
 
@@ -27,5 +26,25 @@ public class SellerController {
     @GetMapping("/{id}")
     public Seller getSellerbyId(@PathVariable Integer id) {
         return sellerService.getById(id);
+    }
+
+    @PostMapping
+    public Seller add(@RequestBody Seller seller){
+        return sellerService.add(seller);
+    }
+
+    @PutMapping("/{id}")
+    public Seller update(@PathVariable Integer id, @RequestBody Seller seller){
+        return sellerService.update(id, seller);
+    }
+
+    @PatchMapping("/{id}/deactivate")
+    public Seller deactivate(@PathVariable Integer id) {
+        return sellerService.deactivateSeller(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id){
+        sellerService.delete(id);
     }
 }

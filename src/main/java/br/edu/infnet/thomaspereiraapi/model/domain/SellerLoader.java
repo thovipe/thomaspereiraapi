@@ -28,15 +28,25 @@ public class SellerLoader implements ApplicationRunner {
             fields = line.split(";");
 
             Seller seller = new Seller();
-            seller.setSellerId(Integer.valueOf(fields[0]));
+            Address selleraddress = new Address();
+            //seller.setSellerId(Integer.valueOf(fields[0]));
             seller.setName(fields[1]);
             seller.setEmail(fields[2]);
             seller.setIsActive(Boolean.valueOf(fields[3]));
+            selleraddress.setStreetName(fields[4]);
+            selleraddress.setNumber(Integer.valueOf(fields[5]));
+            selleraddress.setDistrict(fields[6]);
+            selleraddress.setCity(fields[7]);
+            selleraddress.setState(fields[8]);
+            selleraddress.setZipCode(fields[9]);
+            selleraddress.setCountry(fields[10]);
+            selleraddress.setComplement(fields[11]);
+            seller.setAddress(selleraddress);
             sellerService.add(seller);
             System.out.println(seller);
             line = reader.readLine();
         }
-
+        reader.close();
         System.out.println("List size: " + sellerService.getList().size());
 
     }

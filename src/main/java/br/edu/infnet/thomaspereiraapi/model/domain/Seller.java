@@ -6,6 +6,7 @@ public class Seller {
     private String email;
     private Integer sellerId;
     private boolean isActive;
+    private Address address;
 
     public Seller() {
     }
@@ -42,8 +43,16 @@ public class Seller {
         this.isActive = isActive;
     }
 
+    public Address getAddress() {
+        return this.address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
-        return String.format("SellerId: %d \nSeller: %s \ne-mail: %s \nisActive: %s", this.sellerId, this.name, this.email, this.isActive);
+        return String.format("SellerId: %d \nSeller: %s \ne-mail: %s \nisActive: %s \nAddress: %s", this.sellerId, this.name, this.email, this.isActive, this.address);
     }
 }

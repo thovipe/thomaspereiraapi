@@ -1,3 +1,3 @@
-1;SuperStore;admin@superstore.com;true
-2;MegaStore;admin@megastore.com;false
-3;HiperStore;admin@hiperstore.com;true
+1;SuperStore;admin@superstore.com;true;Rua Silva e Goes;141;Centro;Rio de Janeiro;Rio de Janeiro;20002-080;Brasil;Loja 19
+2;MegaStore;admin@megastore.com;false;Av. Paulista;1578;Bela Vista;São Paulo;São Paulo;01310-200;Brasil;Loja 02
+3;HiperStore;admin@hiperstore.com;true;Rua do Comércio;89;Aldeota;Fortaleza;Ceará;60150-160;Brasil;Loja 07
