@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "26600b7f-fc0a-4abc-8664-c4ba14a26bb3",
+		"name": "thomaspereiraapi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "831465",
+		"_collection_link": "https://thomas-pereira.postman.co/workspace/d4263c9d-8110-4059-ad6a-a56b3f472cbf/collection/831465-26600b7f-fc0a-4abc-8664-c4ba14a26bb3?action=share&source=collection_link&creator=831465"
+	},
+	"item": [
+		{
+			"name": "Seller",
+			"item": [
+				{
+					"name": "getSellers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/sellers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"sellers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSellersById",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/sellers/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"sellers",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSeller",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"MicroStore\",\n    \"email\": \"administrator@microstore.com\",\n    \"isActive\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/sellers/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"sellers",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addSeller",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"MicroStore\",\n    \"email\": \"admin@microstore.com\",\n    \"isActive\": true,\n    \"address\": {\n        \"streetName\": \"Rua do Burgues\",\n        \"district\": \"Taubate\",\n        \"city\": \"São Paulo\",\n        \"state\": \"São Paulo\",\n        \"zipCode\": \"60150-160\",\n        \"country\": \"Brasil\",\n        \"complement\": \"Sobreloja\",\n        \"number\": 22\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/sellers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"sellers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deactivateSeller",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/sellers/4/deactivate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"sellers",
+								"4",
+								"deactivate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSeller",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/seller/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"seller",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
