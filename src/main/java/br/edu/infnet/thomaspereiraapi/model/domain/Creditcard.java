@@ -1,11 +1,21 @@
 package br.edu.infnet.thomaspereiraapi.model.domain;
 
-public class Credicard {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
+public class Creditcard {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String cardNumber;
-    private String cardHolderName;
+    private String holder;
     private int securityCode;
     private String expirationDate;
+    private String brand;
 
     public String getCardNumber() {
         return this.cardNumber;
@@ -13,11 +23,11 @@ public class Credicard {
     public void setCardNumber(String cardNumber){
         this.cardNumber = cardNumber;
     }
-    public String getCardHolderName() {
-        return this.cardHolderName;
+    public String getHolder() {
+        return this.holder;
     }
-    public void setCardHolderName(String cardHolderName) {
-        this.cardHolderName = cardHolderName;
+    public void setHolder(String cardHolderName) {
+        this.holder = holder;
     }
     public int getSecurityCode() {
         return this.securityCode;
@@ -30,5 +40,11 @@ public class Credicard {
     }
     public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
+    }
+    public String getBrand() {
+        return this.brand;
+    }
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 }

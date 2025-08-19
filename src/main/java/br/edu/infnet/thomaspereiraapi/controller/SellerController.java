@@ -1,10 +1,11 @@
 package br.edu.infnet.thomaspereiraapi.controller;
 
 import br.edu.infnet.thomaspereiraapi.model.domain.Seller;
+import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.SellerNotFoundException;
 import br.edu.infnet.thomaspereiraapi.model.service.SellerService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
 
@@ -19,32 +20,34 @@ public class SellerController {
     }
 
     @GetMapping
-    public List<Seller> getSellers(){
-        return sellerService.getList();
+    public ResponseEntity<List<Seller>> getSellers(){
+        return ResponseEntity.ok(sellerService.getList());
     }
 
     @GetMapping("/{id}")
-    public Seller getSellerbyId(@PathVariable Integer id) {
-        return sellerService.getById(id);
+    public ResponseEntity<Seller> getSellerbyId(@PathVariable Integer id) {
+        return ResponseEntity.ok(sellerService.getById(id));
     }
 
     @PostMapping
-    public Seller add(@RequestBody Seller seller){
-        return sellerService.add(seller);
+    public ResponseEntity<Seller> add(@RequestBody Seller seller){
+        Seller newSeller = sellerService.add(seller);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newSeller);
     }
 
     @PutMapping("/{id}")
-    public Seller update(@PathVariable Integer id, @RequestBody Seller seller){
-        return sellerService.update(id, seller);
+    public ResponseEntity<Seller> update(@PathVariable Integer id, @RequestBody Seller seller){
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(sellerService.update(id, seller));
     }
 
     @PatchMapping("/{id}/deactivate")
-    public Seller deactivate(@PathVariable Integer id) {
-        return sellerService.deactivateSeller(id);
+    public ResponseEntity<Seller> deactivate(@PathVariable Integer id) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(sellerService.deactivateSeller(id));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id){
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
         sellerService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

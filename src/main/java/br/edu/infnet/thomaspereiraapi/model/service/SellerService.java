@@ -3,9 +3,9 @@ package br.edu.infnet.thomaspereiraapi.model.service;
 import br.edu.infnet.thomaspereiraapi.model.domain.Seller;
 import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.InvalidSellerExpection;
 import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.SellerNotFoundException;
+import br.edu.infnet.thomaspereiraapi.model.domain.repository.SellerRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +13,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class SellerService implements CrudService<Seller, Integer>{
+
+    private final SellerRepository sellerRepository;
+
+    public SellerService(SellerRepository sellerRepository) {
+        this.sellerRepository = sellerRepository;
+    }
 
     private final Map<Integer, Seller> sellers = new ConcurrentHashMap<>();
     private final AtomicInteger nextId = new AtomicInteger(1);
@@ -32,9 +38,7 @@ public class SellerService implements CrudService<Seller, Integer>{
         if(seller.getSellerId() != null && seller.getSellerId() != 0) {
             throw new IllegalArgumentException("Seller can not be added if has an id");
         }
-        seller.setSellerId(nextId.getAndIncrement());
-        sellers.put(seller.getSellerId(), seller);
-        return seller;
+        return sellerRepository.save(seller);
     }
 
     @Override
@@ -42,6 +46,8 @@ public class SellerService implements CrudService<Seller, Integer>{
         checkSeller(seller);
         getById(id);
         seller.setSellerId(id);
+        sellerRepository.findById(id);
+        sellerRepository.save(seller);
         sellers.put(seller.getSellerId(), seller);
         return seller;
     }
@@ -51,10 +57,8 @@ public class SellerService implements CrudService<Seller, Integer>{
         if (integer == null || integer <= 0) {
             throw new IllegalArgumentException("Invalid Id, id needs to be greater than 0 and not null");
         }
-        if (!sellers.containsKey(integer)) {
-            throw new SellerNotFoundException("Seller with id " + integer + " not found");
-        }
-        sellers.remove(integer);
+        Seller byId = sellerRepository.getById(integer);
+        sellerRepository.deleteById(integer);
     }
 
     @Override
@@ -63,14 +67,12 @@ public class SellerService implements CrudService<Seller, Integer>{
             throw new IllegalArgumentException("Invalid Id, id needs to be greater than 0 and not null");
         }
         Seller seller = sellers.get(integer);
-        return seller;
+        return sellerRepository.findById(integer).orElseThrow( () -> new SellerNotFoundException("Seller with id " + integer + " not found"));
     }
 
     @Override
     public List<Seller> getList() {
-        ArrayList<Seller> sellerslist = new ArrayList<>();
-        sellerslist.addAll(sellers.values());
-        return sellerslist;
+        return sellerRepository.findAll();
     }
 
     public Seller deactivateSeller(Integer id) {

@@ -1,12 +1,31 @@
 package br.edu.infnet.thomaspereiraapi.model.domain;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
 public class Seller {
 
     private String name;
     private String email;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sellerId;
     private boolean isActive;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
     private Address address;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private CieloPaymentProvider cieloPaymentProvider;
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
     public Seller() {
     }
@@ -51,8 +70,17 @@ public class Seller {
         this.address = address;
     }
 
+    public CieloPaymentProvider getCieloPaymentProvider() {
+        return this.cieloPaymentProvider;
+    }
+
+    public void setCieloPaymentProvider(CieloPaymentProvider cieloPaymentProvider) {
+        this.cieloPaymentProvider = cieloPaymentProvider;
+    }
+
     @Override
     public String toString() {
         return String.format("SellerId: %d \nSeller: %s \ne-mail: %s \nisActive: %s \nAddress: %s", this.sellerId, this.name, this.email, this.isActive, this.address);
     }
 }
+

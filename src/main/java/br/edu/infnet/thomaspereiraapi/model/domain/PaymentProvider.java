@@ -1,16 +1,28 @@
 package br.edu.infnet.thomaspereiraapi.model.domain;
 
+import jakarta.persistence.*;
 import java.net.URI;
 
+@MappedSuperclass
 public abstract class PaymentProvider {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private URI url;
-    private Integer providerId;
+    private String providerId;
     private String providerKey;
     private boolean isActive;
 
     public abstract String getProviderInfo();
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return this.name;
@@ -28,11 +40,11 @@ public abstract class PaymentProvider {
         this.url = url;
     }
 
-    public Integer getProviderId() {
+    public String getProviderId() {
         return this.providerId;
     }
 
-    public void setProviderId(Integer providerId) {
+    public void setProviderId(String providerId) {
         this.providerId = providerId;
     }
 
@@ -48,8 +60,17 @@ public abstract class PaymentProvider {
         return this.isActive;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
+
 }
 
