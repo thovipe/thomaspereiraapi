@@ -173,13 +173,13 @@
 							},
 							{
 								"key": "ProviderKey",
-								"value": "",
+								"value": "IRVVOZKOGEBQHVDHUMEIDPIZDTYEGJMMBAFHSIAL",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"merchantOrderId\" : \"d7c98b92-2d5a-4369-a932-7c00070b0674\",\n  \"payment\" : {\n    \"currency\" : \"BRL\",\n    \"amount\" : 100,\n    \"installments\" : 1,\n    \"authenticated\" : false,\n    \"CreditCard\" : {\n      \"cardNumber\" : \"1234123412341232\",\n      \"securityCode\" : 123,\n      \"expirationDate\" : \"12/2030\",\n      \"brand\" : \"Visa\"\n    },\n    \"Type\" : \"CreditCard\"\n  }\n}",
+							"raw": "{\n   \"customer\":{\n       \"name\": \"Gilberto Braga\",\n       \"email\": \"gilberto@braga.com\",\n       \"phone\": \"21990090921\",\n       \"cpf\": \"123.444.777-00\",\n       \"address\": {\n           \"streetName\": \"Rua Silva e Goes\",\n           \"district\": \"Centro\",\n           \"city\": \"Rio de Janeiro\",\n           \"state\": \"RJ\",\n           \"zipCode\": \"20002-080\",\n           \"country\": \"Brasil\",\n           \"complement\": \"SL 19\",\n           \"number\": 141\n       }\n    },\n  \"sellerId\": 1,\n  \"merchantOrderId\" : \"d7c98b92-2d5a-4369-a932-7c00070b0674\",\n  \"payment\" : {\n    \"currency\" : \"BRL\",\n    \"amount\" : 100,\n    \"installments\" : 1,\n    \"authenticated\" : false,\n    \"CreditCard\" : {\n      \"cardNumber\" : \"1234123412341234\",\n      \"securityCode\" : 123,\n      \"expirationDate\" : \"12/2030\",\n      \"brand\" : \"Visa\"\n    },\n    \"Type\" : \"CreditCard\"\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -196,6 +196,111 @@
 							"path": [
 								"api",
 								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Costumer",
+			"item": [
+				{
+					"name": "getCustomers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCustomerById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/customers/20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customers",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addCustomer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Gilberto Braga Junior\",\n    \"email\": \"junior@braga.com\",\n    \"phone\": \"21990090921\",\n    \"cpf\": \"123.444.888-00\",\n    \"address\": {\n        \"streetName\": \"Rua Silva e Goes\",\n        \"district\": \"Centro\",\n        \"city\": \"Rio de Janeiro\",\n        \"state\": \"Rio de Janeiro\",\n        \"zipCode\": \"20002-080\",\n        \"country\": \"Brasil\",\n        \"complement\": \"SL 19\",\n        \"number\": 141\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCustomer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"id\": 20,\n        \"name\": \"Larissa Teixeira\",\n        \"email\": \"larissa.teixeira@protonmail.com\",\n        \"phone\": \"63988776644\",\n        \"cpf\": \"456.789.123-21\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/customers/20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customers",
+								"20"
 							]
 						}
 					},
