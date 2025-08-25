@@ -1,29 +1,21 @@
 package br.edu.infnet.thomaspereiraapi.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 
-import java.time.LocalDateTime;
 @Entity
 public class CieloTransaction extends Transaction {
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name= "costumer_id")
-    private Costumer costumer;
+    @NotBlank(message = "The merchant order Id is mandatory field.")
     private String merchantOrderId;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id")
+    @Valid
     private CieloPayment payment;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "seller_seller_id")
-    private Seller seller;
-
-    public Costumer getCostumer() {
-        return costumer;
-    }
-
-    public void setCostumer(Costumer costumer) {
-        this.costumer = costumer;
-    }
+    private Integer sellerId;
 
     public String getMerchantOrderId() {
         return merchantOrderId;
@@ -41,16 +33,17 @@ public class CieloTransaction extends Transaction {
         this.payment = payment;
     }
 
-    public Seller getSeller() {
-        return seller;
+    public Integer getSellerId() {
+        return this.sellerId;
     }
 
-    public void setSeller(Seller seller) {
-        this.seller = seller;
+    public void setSellerId(Integer sellerId) {
+        this.sellerId = sellerId;
     }
+
 
     @Override
     public String toString() {
         return super.toString();
-    }
+   }
 }

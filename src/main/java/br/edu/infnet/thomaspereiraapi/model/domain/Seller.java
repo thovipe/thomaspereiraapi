@@ -1,23 +1,34 @@
 package br.edu.infnet.thomaspereiraapi.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.List;
 
 @Entity
 public class Seller {
-
+    @NotBlank(message = "Seller name is mandatory field.")
     private String name;
+    @NotBlank(message = "Seller email is a mandatory field.")
+    @Email(message = "Invalid email format.")
     private String email;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer sellerId;
+    private Integer id;
     private boolean isActive;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
+    @Valid
     private Address address;
-    @ManyToOne(cascade = CascadeType.ALL)
-    private CieloPaymentProvider cieloPaymentProvider;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<CieloTransaction> cieloTransactions;
+    @Pattern(regexp = "^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$", message = "Invalid CNPJ, use the pattern XX.XXX.XXX/XXX-XX.")
+    private String cnpj;
 
     public boolean isActive() {
         return isActive;
@@ -46,12 +57,12 @@ public class Seller {
         this.email = email;
     }
 
-    public Integer getSellerId() {
-        return this.sellerId;
+    public Integer getId() {
+        return this.id;
     }
 
-    public void setSellerId(Integer sellerId) {
-        this.sellerId = sellerId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public boolean getIsActive() {
@@ -70,17 +81,24 @@ public class Seller {
         this.address = address;
     }
 
-    public CieloPaymentProvider getCieloPaymentProvider() {
-        return this.cieloPaymentProvider;
+    public List<CieloTransaction> getCieloTransactions() {
+        return this.cieloTransactions;
+    }
+    public void setTransactions(List<CieloTransaction> cieloTransactions) {
+        this.cieloTransactions = cieloTransactions;
     }
 
-    public void setCieloPaymentProvider(CieloPaymentProvider cieloPaymentProvider) {
-        this.cieloPaymentProvider = cieloPaymentProvider;
+    public String getCnpj() {
+        return this.cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     @Override
     public String toString() {
-        return String.format("SellerId: %d \nSeller: %s \ne-mail: %s \nisActive: %s \nAddress: %s", this.sellerId, this.name, this.email, this.isActive, this.address);
+        return String.format("SellerId: %d \nSeller: %s \ne-mail: %s \nisActive: %s \nAddress: %s", this.id, this.name, this.email, this.isActive, this.address);
     }
 }
 

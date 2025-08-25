@@ -3,6 +3,7 @@ package br.edu.infnet.thomaspereiraapi.model.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import org.springframework.boot.jackson.JsonComponent;
 
 import java.math.BigDecimal;
@@ -19,6 +20,18 @@ public abstract class Transaction {
     private LocalDateTime modifieddate;
     private String merchantId;
     private String merchantName;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
+    @Valid
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     public Long getId() {
         return id;
@@ -66,5 +79,13 @@ public abstract class Transaction {
 
     public void setMerchantName(String merchantName) {
         this.merchantName = merchantName;
+    }
+
+    public Customer getCostumer() {
+        return this.customer;
+    }
+
+    public void setCostumer(Customer customer) {
+        this.customer = customer;
     }
 }

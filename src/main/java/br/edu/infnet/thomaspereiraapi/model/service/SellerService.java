@@ -1,15 +1,12 @@
 package br.edu.infnet.thomaspereiraapi.model.service;
 
 import br.edu.infnet.thomaspereiraapi.model.domain.Seller;
-import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.InvalidSellerExpection;
+import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.InvalidSellerException;
 import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.SellerNotFoundException;
 import br.edu.infnet.thomaspereiraapi.model.domain.repository.SellerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class SellerService implements CrudService<Seller, Integer>{
@@ -20,22 +17,22 @@ public class SellerService implements CrudService<Seller, Integer>{
         this.sellerRepository = sellerRepository;
     }
 
-    private final Map<Integer, Seller> sellers = new ConcurrentHashMap<>();
-    private final AtomicInteger nextId = new AtomicInteger(1);
-
     private void checkSeller(Seller seller){
         if(seller == null) {
             throw new IllegalArgumentException("Seller can not be null");
         }
         if(seller.getName() == null || seller.getName().trim().isEmpty()) {
-            throw new InvalidSellerExpection("Seller name is required");
+            throw new InvalidSellerException("Seller name is required");
+        }
+        if(seller.getCnpj() == null || seller.getCnpj().trim().isEmpty()) {
+            throw new InvalidSellerException("Seller CNPJ is required");
         }
     }
 
     @Override
     public Seller add(Seller seller) {
         checkSeller(seller);
-        if(seller.getSellerId() != null && seller.getSellerId() != 0) {
+        if(seller.getId() != null && seller.getId() != 0) {
             throw new IllegalArgumentException("Seller can not be added if has an id");
         }
         return sellerRepository.save(seller);
@@ -45,11 +42,10 @@ public class SellerService implements CrudService<Seller, Integer>{
     public Seller update(Integer id, Seller seller) {
         checkSeller(seller);
         getById(id);
-        seller.setSellerId(id);
+        seller.setId(id);
         sellerRepository.findById(id);
-        sellerRepository.save(seller);
-        sellers.put(seller.getSellerId(), seller);
-        return seller;
+
+        return sellerRepository.save(seller);
     }
 
     @Override
@@ -66,8 +62,7 @@ public class SellerService implements CrudService<Seller, Integer>{
         if (integer == null || integer <= 0) {
             throw new IllegalArgumentException("Invalid Id, id needs to be greater than 0 and not null");
         }
-        Seller seller = sellers.get(integer);
-        return sellerRepository.findById(integer).orElseThrow( () -> new SellerNotFoundException("Seller with id " + integer + " not found"));
+       return sellerRepository.findById(integer).orElseThrow( () -> new SellerNotFoundException("Seller with id " + integer + " not found"));
     }
 
     @Override

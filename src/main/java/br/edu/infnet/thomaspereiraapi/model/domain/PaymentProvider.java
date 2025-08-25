@@ -1,6 +1,8 @@
 package br.edu.infnet.thomaspereiraapi.model.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
 import java.net.URI;
 
 @MappedSuperclass
@@ -10,7 +12,9 @@ public abstract class PaymentProvider {
     private Long id;
     private String name;
     private URI url;
+    @NotBlank(message = "The provider Id is a mandatory field.")
     private String providerId;
+    @NotBlank(message = "The provider key is mandatory field.")
     private String providerKey;
     private boolean isActive;
 

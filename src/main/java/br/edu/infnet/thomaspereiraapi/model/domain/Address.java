@@ -4,6 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Address {
@@ -11,11 +15,19 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank(message = "The street name is a mandatory field.")
+    @Size(min = 2, max = 100, message = "The street name should have at least 2 characters and a max of 100.")
     private String streetName;
+    @NotBlank(message = "The district is a mandatory field.")
     private String district;
+    @NotBlank(message = "The city is a mandatory field.")
     private String city;
+    @NotBlank(message = "The state is mandatory field.")
     private String state;
+    @NotBlank(message = "The zipcode is mandatory field.")
+    @Pattern(regexp = "\\d{5}-\\d{3}", message = "Invalid format, use the following pattern XXXXX-XXX")
     private String zipCode;
+    @NotBlank(message = "The country is a mandatory field.")
     private String country;
     private String complement;
     private int number;

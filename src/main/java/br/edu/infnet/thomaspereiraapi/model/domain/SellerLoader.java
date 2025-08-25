@@ -29,7 +29,6 @@ public class SellerLoader implements ApplicationRunner {
 
             Seller seller = new Seller();
             Address selleraddress = new Address();
-            //seller.setSellerId(Integer.valueOf(fields[0]));
             seller.setName(fields[1]);
             seller.setEmail(fields[2]);
             seller.setIsActive(Boolean.valueOf(fields[3]));
@@ -42,6 +41,7 @@ public class SellerLoader implements ApplicationRunner {
             selleraddress.setCountry(fields[10]);
             selleraddress.setComplement(fields[11]);
             seller.setAddress(selleraddress);
+            seller.setCnpj(fields[12]);
             sellerService.add(seller);
             System.out.println(seller);
             line = reader.readLine();

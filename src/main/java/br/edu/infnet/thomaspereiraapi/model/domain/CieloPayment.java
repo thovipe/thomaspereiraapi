@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 @Entity
 public class CieloPayment extends Payment {
 
-
     private Boolean capture;
     private Integer serviceTaxAmount;
     private Boolean authenticated;

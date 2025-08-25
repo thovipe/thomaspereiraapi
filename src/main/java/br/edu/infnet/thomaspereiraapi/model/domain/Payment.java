@@ -2,6 +2,8 @@ package br.edu.infnet.thomaspereiraapi.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 
 @MappedSuperclass
 public abstract class Payment {
@@ -17,6 +19,7 @@ public abstract class Payment {
     private Creditcard creditcard;
     private Integer installments;
     @JsonProperty("Type")
+    @NotBlank(message = "The transaction type is mandatory field.")
     private String type;
 
     public Long getId() {

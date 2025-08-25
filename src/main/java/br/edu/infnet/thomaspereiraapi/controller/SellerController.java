@@ -3,6 +3,7 @@ package br.edu.infnet.thomaspereiraapi.controller;
 import br.edu.infnet.thomaspereiraapi.model.domain.Seller;
 import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.SellerNotFoundException;
 import br.edu.infnet.thomaspereiraapi.model.service.SellerService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,13 +31,13 @@ public class SellerController {
     }
 
     @PostMapping
-    public ResponseEntity<Seller> add(@RequestBody Seller seller){
+    public ResponseEntity<Seller> add(@Valid @RequestBody Seller seller){
         Seller newSeller = sellerService.add(seller);
         return ResponseEntity.status(HttpStatus.CREATED).body(newSeller);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Seller> update(@PathVariable Integer id, @RequestBody Seller seller){
+    public ResponseEntity<Seller> update(@PathVariable Integer id, @Valid @RequestBody Seller seller){
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(sellerService.update(id, seller));
     }
 
