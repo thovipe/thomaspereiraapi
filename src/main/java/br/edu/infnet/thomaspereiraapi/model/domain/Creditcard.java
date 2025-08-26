@@ -1,5 +1,6 @@
 package br.edu.infnet.thomaspereiraapi.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,13 +16,15 @@ public class Creditcard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "The credit card number is a mandatory field.")
+    @JsonAlias("CardNumber")
     private String cardNumber;
     private String holder;
-    //@Range(min = 3, max = 5, message = "The security code is a mandatory field.")
     private Integer securityCode;
     @NotBlank(message = "The expiration date is a mandatory field.")
+    @JsonAlias("ExpirationDate")
     private String expirationDate;
     @NotBlank(message = "The creditcard brand is a mandatory field.")
+    @JsonAlias("Brand")
     private String brand;
 
     public String getCardNumber() {
@@ -36,10 +39,10 @@ public class Creditcard {
     public void setHolder(String cardHolderName) {
         this.holder = holder;
     }
-    public int getSecurityCode() {
+    public Integer getSecurityCode() {
         return this.securityCode;
     }
-    public void setSecurityCode(int securityCode) {
+    public void setSecurityCode(Integer securityCode) {
         this.securityCode = securityCode;
     }
     public String getExpirationDate() {

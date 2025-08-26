@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,17 +25,21 @@ public class Seller {
     @JoinColumn(name = "address_id")
     @Valid
     private Address address;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,  orphanRemoval = false)
     @JsonManagedReference
     private List<CieloTransaction> cieloTransactions;
+    @NotBlank(message = "The cnpj field is mandatory.")
     @Pattern(regexp = "^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$", message = "Invalid CNPJ, use the pattern XX.XXX.XXX/XXX-XX.")
     private String cnpj;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "seller")
+    @JsonManagedReference
+    private List<Customer> customer = new ArrayList();
 
-    public boolean isActive() {
-        return isActive;
+    public boolean getIsActive() {
+        return this.isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         isActive = active;
     }
 
@@ -65,13 +70,8 @@ public class Seller {
         this.id = id;
     }
 
-    public boolean getIsActive() {
-        return this.isActive;
-    }
 
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
-    }
+
 
     public Address getAddress() {
         return this.address;
@@ -94,6 +94,14 @@ public class Seller {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
+    }
+
+    public List<Customer> getCustomer() {
+        return this.customer;
+    }
+
+    public void setCustomer(List<Customer> customer) {
+        this.customer = customer;
     }
 
     @Override

@@ -8,6 +8,7 @@ import br.edu.infnet.thomaspereiraapi.model.domain.repository.CieloTransactionRe
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -53,6 +54,11 @@ public class CieloService implements CrudService <CieloTransaction, Integer > {
         }
     }
 
+    public <T> T ReadJson (String json, Class<T> classOfT) throws JsonProcessingException {
+        return this.objectMapper.readValue(json, classOfT);
+    }
+
+
     public void checkCieloTransaction(CieloTransaction cielotransaction) {
         if (Objects.isNull(cielotransaction)) {
             throw new IllegalArgumentException("Cielo transaction is null");
@@ -69,13 +75,14 @@ public class CieloService implements CrudService <CieloTransaction, Integer > {
         Optional<CieloPaymentProvider> cieloPaymentProvider = cieloPaymentProviderRepository.findById(providerId);
         Seller seller = sellerService.getById(providerId);
         CieloTransaction cielotransaction = transaction;
-        cielotransaction.setSellerId(providerId);
+        cielotransaction.setSeller(seller);
+        cielotransaction.getCustomer().setSeller(seller);
         List<CieloTransaction> transactions = new ArrayList<>();
         transactions.add(cielotransaction);
         seller.setTransactions(transactions);
         cielotransaction.setStarteddate(LocalDateTime.now());
         cielotransaction.setMerchantId(cieloPaymentProvider.get().getProviderId());
-        cielotransaction.setMerchantOrderId(UUID.randomUUID().toString());
+        cielotransaction.setMerchantOrderId(transaction.getMerchantOrderId());
 
         HttpClient client =  HttpClient.newHttpClient();
 
@@ -94,25 +101,41 @@ public class CieloService implements CrudService <CieloTransaction, Integer > {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             cielotransaction.setEndeddate(LocalDateTime.now());
             add(cielotransaction);
-            sellerService.update(providerId,seller);
+
+            CieloTransaction transactionResponse = ReadJson(response.body(), CieloTransaction.class);
+           // transactionResponse.setSeller(seller);
+            update(cielotransaction.getId(), transactionResponse);
+
             return response.body();
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
+
+
     @Override
+    @Transactional
     public CieloTransaction add(CieloTransaction transaction) {
         return cielotransactionRepository.save(transaction);
     }
 
     @Override
+    @Transactional
     public CieloTransaction update(Integer id, CieloTransaction transaction) {
-        var transactionToUpdate = getById(id);;
+        CieloTransaction transactionToUpdate = getById(id);
+
+        Seller tempSeller = transactionToUpdate.getSeller();
+        Customer tempCustomer = transactionToUpdate.getCustomer();
+        transaction.setSeller(tempSeller);
+        transaction.setCustomer(tempCustomer);
+        transactionToUpdate = transaction;
+
         return cielotransactionRepository.save(transactionToUpdate);
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
         if (id == null) {
             throw new IllegalArgumentException("Id can't be null");
@@ -128,6 +151,13 @@ public class CieloService implements CrudService <CieloTransaction, Integer > {
         return cielotransactionRepository.findById(id).orElseThrow(
                 () -> new CieloTransactionNotFoundException("Transaction with id: " + id + " can not be found.")
         );
+    }
+
+    public CieloTransaction getByMerchantOrderId(String merchantOrderId) {
+        if(merchantOrderId == null) {
+            throw new IllegalArgumentException("Merchant order id can't be null");
+        }
+        return cielotransactionRepository.findFirstByMerchantOrderId(merchantOrderId).orElseThrow(() -> new CieloTransactionNotFoundException("Transaction with MerchantOrderId: " + merchantOrderId + "not found."));
     }
 
     @Override

@@ -1,3 +1,20 @@
 1;SuperStore;admin@superstore.com;true;Rua Silva e Goes;141;Centro;Rio de Janeiro;Rio de Janeiro;20002-080;Brasil;Loja 19;19.123.555/0001-99
 2;MegaStore;admin@megastore.com;false;Av. Paulista;1578;Bela Vista;São Paulo;São Paulo;01310-200;Brasil;Loja 02;11.485.555/0001-78
 3;HiperStore;admin@hiperstore.com;true;Rua do Comércio;89;Aldeota;Fortaleza;Ceará;60150-160;Brasil;Loja 07;87.547.714/0001-23
+4;TechMart;admin@techmart.com;false;Av. Beira Mar;567;Mucuripe;Fortaleza;Ceará;60165-121;Brasil;Loja 12;23.456.789/0001-45
+5;ElectroShop;admin@electroshop.com;true;Rua das Flores;234;Jardins;São Paulo;São Paulo;01414-020;Brasil;Loja 05;34.567.890/0001-67
+6;GigaStore;admin@gigastore.com;false;Av. Afonso Pena;890;Centro;Belo Horizonte;Minas Gerais;30130-002;Brasil;Loja 03;45.678.901/0001-89
+7;UltraMarket;admin@ultramarket.com;true;Rua Chile;456;Centro;Salvador;Bahia;40070-110;Brasil;Loja 14;56.789.012/0001-01
+8;PowerStore;admin@powerstore.com;false;Av. Borges de Medeiros;123;Centro;Porto Alegre;Rio Grande do Sul;90020-025;Brasil;Loja 08;68.881.123/0001-23
+9;MaxiShop;admin@maxishop.com;true;Av. Boa Viagem;678;Boa Viagem;Recife;Pernambuco;51111-000;Brasil;Loja 11;77.901.235/0002-45
+10;SmartStore;admin@smartstore.com;false;Av. Getúlio Vargas;345;Centro;Cuiabá;Mato Grosso;78005-370;Brasil;Loja 06;89.012.345/0001-67
+11;DigitalMart;admin@digitalmart.com;true;Rua Jerônimo Monteiro;234;Centro;Vitória;Espírito Santo;29010-002;Brasil;Loja 15;90.123.456/0001-89
+12;CyberShop;admin@cybershop.com;false;Av. Cabo Branco;456;Cabo Branco;João Pessoa;Paraíba;58045-010;Brasil;Loja 09;01.234.567/0001-01
+13;NeoStore;admin@neostore.com;true;Av. Engenheiro Roberto Freire;789;Capim Macio;Natal;Rio Grande do Norte;59082-400;Brasil;Loja 17;12.345.678/0001-23
+14;FlashMarket;admin@flashmarket.com;false;Av. Dom Pedro II;567;Centro;São Luís;Maranhão;65010-440;Brasil;Loja 04;35.956.789/0001-48
+15;TurboStore;admin@turbostore.com;true;Av. FAB;123;Centro;Macapá;Amapá;68906-745;Brasil;Loja 20;45.557.880/0001-99
+16;RocketShop;admin@rocketshop.com;false;Av. Venezuela;890;Monte Cristo;Boa Vista;Roraima;69305-140;Brasil;Loja 13;45.668.911/0001-00
+17;HyperMart;admin@hypermart.com;true;Av. Afonso Pena;345;Centro;Campo Grande;Mato Grosso do Sul;79002-070;Brasil;Loja 01;58.779.012/0001-01
+18;SpeedStore;admin@speedstore.com;false;Av. Ceará;678;Centro;Rio Branco;Acre;69900-495;Brasil;Loja 16;67.890.123/0001-23
+19;RapidShop;admin@rapidshop.com;true;Av. Lauro Sodré;234;Centro;Porto Velho;Rondônia;76801-424;Brasil;Loja 10;78.901.234/0001-45
+20;InstantMart;admin@instantmart.com;false;Av. Juscelino Kubitschek;567;Plano Diretor Sul;Palmas;Tocantins;77016-001;Brasil;Loja 18;89.012.345/0002-67

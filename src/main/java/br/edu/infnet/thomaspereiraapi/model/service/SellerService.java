@@ -4,6 +4,7 @@ import br.edu.infnet.thomaspereiraapi.model.domain.Seller;
 import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.InvalidSellerException;
 import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.SellerNotFoundException;
 import br.edu.infnet.thomaspereiraapi.model.domain.repository.SellerRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class SellerService implements CrudService<Seller, Integer>{
     }
 
     @Override
+    @Transactional
     public Seller add(Seller seller) {
         checkSeller(seller);
         if(seller.getId() != null && seller.getId() != 0) {
@@ -39,16 +41,20 @@ public class SellerService implements CrudService<Seller, Integer>{
     }
 
     @Override
+    @Transactional
     public Seller update(Integer id, Seller seller) {
         checkSeller(seller);
-        getById(id);
-        seller.setId(id);
-        sellerRepository.findById(id);
-
-        return sellerRepository.save(seller);
+        Seller sellerTobeUpdated = getById(id);
+        sellerTobeUpdated.setName(seller.getName());
+        sellerTobeUpdated.setCnpj(seller.getCnpj());
+        sellerTobeUpdated.setAddress(seller.getAddress());
+        sellerTobeUpdated.setEmail(seller.getEmail());
+        sellerTobeUpdated.setIsActive(seller.getIsActive());
+        return sellerRepository.save(sellerTobeUpdated);
     }
 
     @Override
+    @Transactional
     public void delete(Integer integer) {
         if (integer == null || integer <= 0) {
             throw new IllegalArgumentException("Invalid Id, id needs to be greater than 0 and not null");
@@ -70,6 +76,7 @@ public class SellerService implements CrudService<Seller, Integer>{
         return sellerRepository.findAll();
     }
 
+
     public Seller deactivateSeller(Integer id) {
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("Invalid Id, id needs to be greater than 0 and not null");
@@ -80,6 +87,7 @@ public class SellerService implements CrudService<Seller, Integer>{
             return seller;
         }
         seller.setIsActive(false);
+        sellerRepository.save(seller);
         return seller;
     }
 }

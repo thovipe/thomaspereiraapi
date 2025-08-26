@@ -1,8 +1,6 @@
 package br.edu.infnet.thomaspereiraapi.controller.exception;
 
-import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.InvalidCustomerException;
-import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.InvalidSellerException;
-import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.SellerNotFoundException;
+import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -47,6 +45,22 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidCustomerException.class)
     public ResponseEntity<Map<String, String>> handleException(InvalidCustomerException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("timestamp:", LocalDateTime.now().toString());
+        errors.put("message:", ex.getMessage());
+        return new ResponseEntity<>(errors,HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CieloTransactionNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleException(CieloTransactionNotFoundException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("timestamp:", LocalDateTime.now().toString());
+        errors.put("message:", ex.getMessage());
+        return new ResponseEntity<>(errors,HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidCieloTransactionException.class)
+    public ResponseEntity<Map<String, String>> handleException(InvalidCieloTransactionException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("timestamp:", LocalDateTime.now().toString());
         errors.put("message:", ex.getMessage());

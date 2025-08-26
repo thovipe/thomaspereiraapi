@@ -4,9 +4,10 @@ import br.edu.infnet.thomaspereiraapi.model.domain.repository.CieloPaymentProvid
 import br.edu.infnet.thomaspereiraapi.model.service.SellerService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-
+@Order(3)
 @Component
 public class CieloPaymentProviderLoader implements ApplicationRunner {
 

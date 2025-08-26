@@ -1,17 +1,23 @@
 package br.edu.infnet.thomaspereiraapi.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Entity
 public class CieloPayment extends Payment {
 
+    @JsonAlias("Capture")
     private Boolean capture;
+    @JsonAlias("ServiceTaxAmount")
     private Integer serviceTaxAmount;
+    @JsonAlias("Authenticate")
     private Boolean authenticated;
+    @JsonAlias("Interest")
     private String interest;
+    @JsonAlias("PaymentId")
+    private String cieloPaymentId;
+    @JsonAlias("Tid")
+    private String acquirerTransactionId;
 
     public Boolean getCapture() {
         return capture;
@@ -43,5 +49,21 @@ public class CieloPayment extends Payment {
 
     public void setInterest(String interest) {
         this.interest = interest;
+    }
+
+    public String getCieloPaymentId() {
+        return this.cieloPaymentId;
+    }
+
+    public void setCieloPaymentId(String cieloPaymentId) {
+        this.cieloPaymentId = cieloPaymentId;
+    }
+
+    public String getAcquirerTransactionId() {
+        return this.acquirerTransactionId;
+    }
+
+    public void setAcquirerTransactionId(String acquirerTransactionId) {
+        this.acquirerTransactionId = acquirerTransactionId;
     }
 }

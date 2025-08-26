@@ -12,7 +12,7 @@ public class CieloPaymentProvider extends PaymentProvider {
 
     private URI queryUri;
     @ManyToOne
-    @JoinColumn(name = "seller_id" )
+    @JoinColumn(name = "seller_id", nullable = false)
     @Valid
     private Seller seller;
 

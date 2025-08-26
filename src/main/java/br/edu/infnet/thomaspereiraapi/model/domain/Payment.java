@@ -1,9 +1,12 @@
 package br.edu.infnet.thomaspereiraapi.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @MappedSuperclass
 public abstract class Payment {
@@ -11,12 +14,16 @@ public abstract class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonAlias("Currency")
     private String currency;
+    @NotNull(message = "The amount value can not be null.")
+    @JsonAlias("Amount")
     private Integer amount;
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name= "creditcard_id")
     @JsonProperty("CreditCard")
     private Creditcard creditcard;
+    @JsonAlias("Installments")
     private Integer installments;
     @JsonProperty("Type")
     @NotBlank(message = "The transaction type is mandatory field.")

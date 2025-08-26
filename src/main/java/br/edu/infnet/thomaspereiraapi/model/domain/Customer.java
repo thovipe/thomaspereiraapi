@@ -1,5 +1,7 @@
 package br.edu.infnet.thomaspereiraapi.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -28,6 +30,11 @@ public class Customer {
     @JoinColumn(name = "address_id")
     @Valid
     private Address address;
+    @ManyToOne
+    @JoinColumn(name = "seller_id", nullable = false)
+    @JsonBackReference
+    @Valid
+    private Seller seller;
 
     public String getName() {
         return this.name;
@@ -76,6 +83,15 @@ public class Customer {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Seller getSeller() {
+        return this.seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
+
     @Override
     public String toString() {
         return String.format("costumerId: %d - name: %s - email: %s - phone: %s - address: %s", this.id, this.name, this.email, this.phone, this.address);

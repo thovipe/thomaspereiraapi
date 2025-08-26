@@ -30,8 +30,8 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Customer> addCustomer(@Valid @RequestBody Customer customer) {
-        Customer newcustomer = customerService.add(customer);
+    public ResponseEntity<Customer> addCustomer(@RequestHeader Integer sellerId, @Valid @RequestBody Customer customer) {
+        Customer newcustomer = customerService.add(sellerId, customer);
         return ResponseEntity.status(HttpStatus.CREATED).body(newcustomer);
     }
 
@@ -40,5 +40,9 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(customerService.update(id, customer));
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id,@Valid @RequestBody Customer customer) {
+        customerService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

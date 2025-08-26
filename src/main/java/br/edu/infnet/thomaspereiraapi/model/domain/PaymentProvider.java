@@ -7,6 +7,7 @@ import java.net.URI;
 
 @MappedSuperclass
 public abstract class PaymentProvider {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

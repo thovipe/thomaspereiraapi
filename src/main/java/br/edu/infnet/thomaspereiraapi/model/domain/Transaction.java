@@ -1,12 +1,13 @@
 package br.edu.infnet.thomaspereiraapi.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import org.springframework.boot.jackson.JsonComponent;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
@@ -14,7 +15,9 @@ public abstract class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime starteddate;
     private LocalDateTime endeddate;
     private LocalDateTime modifieddate;
@@ -33,11 +36,11 @@ public abstract class Transaction {
         this.customer = customer;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -74,7 +77,7 @@ public abstract class Transaction {
     }
 
     public String getMerchantName() {
-        return merchantName;
+        return this.merchantName;
     }
 
     public void setMerchantName(String merchantName) {
