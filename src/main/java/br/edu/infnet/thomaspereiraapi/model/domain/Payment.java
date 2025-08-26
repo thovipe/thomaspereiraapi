@@ -19,7 +19,7 @@ public abstract class Payment {
     @NotNull(message = "The amount value can not be null.")
     @JsonAlias("Amount")
     private Integer amount;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name= "creditcard_id")
     @JsonProperty("CreditCard")
     private Creditcard creditcard;

@@ -11,10 +11,6 @@ import java.util.List;
 public class CieloPaymentProvider extends PaymentProvider {
 
     private URI queryUri;
-    @ManyToOne
-    @JoinColumn(name = "seller_id", nullable = false)
-    @Valid
-    private Seller seller;
 
     public URI getQueryUri() {
         return this.queryUri;
@@ -33,13 +29,4 @@ public class CieloPaymentProvider extends PaymentProvider {
         URI uri = URI.create(url);
         super.setUrl(uri);
     }
-
-    public Seller getSeller() {
-        return this.seller;
-    }
-
-    public void setSeller(Seller seller) {
-        this.seller = seller;
-    }
-
 }

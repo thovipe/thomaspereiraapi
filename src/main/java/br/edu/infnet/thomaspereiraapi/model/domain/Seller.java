@@ -25,7 +25,7 @@ public class Seller {
     @JoinColumn(name = "address_id")
     @Valid
     private Address address;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,  orphanRemoval = false)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<CieloTransaction> cieloTransactions;
     @NotBlank(message = "The cnpj field is mandatory.")

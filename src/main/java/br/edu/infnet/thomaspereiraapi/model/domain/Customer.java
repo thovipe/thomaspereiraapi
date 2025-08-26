@@ -15,21 +15,27 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank(message = "The customer name is a mandatory field.")
     private String name;
+
     @NotBlank(message = "The customer email is a mandatory field.")
     @Email(message = "Invalid email address")
     private String email;
+
     @NotBlank(message = "The customer phone number is a mandatory field.")
     @Pattern(regexp = "\\(?\\d{2}\\)?\\s?\\d{4,5}-?\\d{4}", message = "Invalid phone number use the following pattern (XX) XXXXX-XXXX or (XX) XXXX-XXXX.")
     private String phone;
+
     @NotBlank(message = "The customer CPF is a mandatory field")
     @Pattern(regexp = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}", message = "Invalid CPF, use the pattern XXX.XXX.XXX-XX.")
     private String cpf;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     @Valid
     private Address address;
+
     @ManyToOne
     @JoinColumn(name = "seller_id", nullable = false)
     @JsonBackReference

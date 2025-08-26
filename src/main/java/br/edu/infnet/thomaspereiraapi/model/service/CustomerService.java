@@ -2,6 +2,7 @@ package br.edu.infnet.thomaspereiraapi.model.service;
 
 import br.edu.infnet.thomaspereiraapi.model.domain.Customer;
 import br.edu.infnet.thomaspereiraapi.model.domain.Seller;
+import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.CustomerNotFoundException;
 import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.InvalidCustomerException;
 import br.edu.infnet.thomaspereiraapi.model.domain.repository.CostumerRespository;
 import jakarta.transaction.Transactional;
@@ -99,6 +100,13 @@ public class CustomerService implements CrudService<Customer, Long> {
         return customerRespository.findById(id).orElseThrow(
                 () -> new InvalidCustomerException("Costumer with id " + id + " not found")
         );
+    }
+
+    public Customer getByCpf(String cpf) {
+        if(cpf == null) {
+            throw new IllegalArgumentException("CPF field can not be null");
+        }
+        return customerRespository.findCustomerByCpf(cpf).orElseThrow(() -> new CustomerNotFoundException("Customer with CPF: " + cpf + " not found."));
     }
 
     @Override

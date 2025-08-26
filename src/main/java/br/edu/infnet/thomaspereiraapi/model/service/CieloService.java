@@ -27,13 +27,11 @@ public class CieloService implements CrudService <CieloTransaction, Integer > {
     private final SellerService sellerService;
     private final CustomerService customerService;
 
-
-    CieloService(CieloTransactionRepository cielotransactionRepository, CieloPaymentProviderRepository cieloPaymentProviderRepository, SellerService sellerService, CustomerService customerService) {
+    CieloService(CieloTransactionRepository cielotransactionRepository, CieloPaymentProviderRepository cieloPaymentProviderRepository, SellerService sellerService,  CustomerService customerService) {
                 this.cielotransactionRepository = cielotransactionRepository;
                 this.cieloPaymentProviderRepository = cieloPaymentProviderRepository;
-                this.customerService = customerService;
                 this.sellerService = sellerService;
-
+                this.customerService = customerService;
     }
 
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -72,17 +70,18 @@ public class CieloService implements CrudService <CieloTransaction, Integer > {
 
         checkCieloTransaction(transaction);
 
-        Optional<CieloPaymentProvider> cieloPaymentProvider = cieloPaymentProviderRepository.findById(providerId);
         Seller seller = sellerService.getById(providerId);
-        CieloTransaction cielotransaction = transaction;
-        cielotransaction.setSeller(seller);
-        cielotransaction.getCustomer().setSeller(seller);
         List<CieloTransaction> transactions = new ArrayList<>();
-        transactions.add(cielotransaction);
         seller.setTransactions(transactions);
+        Optional<CieloPaymentProvider> cieloPaymentProvider = cieloPaymentProviderRepository.findById(providerId);
+        CieloTransaction cielotransaction = transaction;
         cielotransaction.setStarteddate(LocalDateTime.now());
         cielotransaction.setMerchantId(cieloPaymentProvider.get().getProviderId());
         cielotransaction.setMerchantOrderId(transaction.getMerchantOrderId());
+
+        Customer customer = customerService.getByCpf(transaction.getCustomer().getCpf());
+
+        var startDate = LocalDateTime.now();
 
         HttpClient client =  HttpClient.newHttpClient();
 
@@ -100,19 +99,22 @@ public class CieloService implements CrudService <CieloTransaction, Integer > {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             cielotransaction.setEndeddate(LocalDateTime.now());
-            add(cielotransaction);
 
             CieloTransaction transactionResponse = ReadJson(response.body(), CieloTransaction.class);
-           // transactionResponse.setSeller(seller);
-            update(cielotransaction.getId(), transactionResponse);
+            transactionResponse.setStarteddate(startDate);
+            transactionResponse.setSeller(seller);
+            transactionResponse.setMerchantId(cieloPaymentProvider.get().getProviderId());
+            transactionResponse.setMerchantName(cieloPaymentProvider.get().getName());
+            transactionResponse.setCustomer(customer);
+            transactionResponse.setEndeddate(LocalDateTime.now());
+            transactions.add(transactionResponse);
+            cielotransactionRepository.save(transactionResponse);
 
             return response.body();
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
-
-
 
     @Override
     @Transactional
@@ -121,17 +123,12 @@ public class CieloService implements CrudService <CieloTransaction, Integer > {
     }
 
     @Override
-    @Transactional
     public CieloTransaction update(Integer id, CieloTransaction transaction) {
-        CieloTransaction transactionToUpdate = getById(id);
-
-        Seller tempSeller = transactionToUpdate.getSeller();
-        Customer tempCustomer = transactionToUpdate.getCustomer();
-        transaction.setSeller(tempSeller);
-        transaction.setCustomer(tempCustomer);
-        transactionToUpdate = transaction;
-
-        return cielotransactionRepository.save(transactionToUpdate);
+        Optional <CieloTransaction> transaction1 = cielotransactionRepository.findById(id);
+        transaction.setSeller(transaction1.get().getSeller());
+        transaction.setId(id);
+        transaction.setModifieddate(LocalDateTime.now());
+        return cielotransactionRepository.save(transaction);
     }
 
     @Override

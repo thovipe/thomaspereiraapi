@@ -31,7 +31,6 @@ public class CieloPaymentProviderLoader implements ApplicationRunner {
                 provider.setProviderKey("IRVVOZKOGEBQHVDHUMEIDPIZDTYEGJMMBAFHSIAL");
                 provider.setActive(true);
                 Seller seller = sellerService.getById(1);
-                provider.setSeller(seller);
                 sellerService.update(1, seller);
                 cieloPaymentProviderRepository.save(provider);
 
