@@ -1,6 +1,8 @@
 package br.edu.infnet.thomaspereiraapi.model.service;
 
+import br.edu.infnet.thomaspereiraapi.client.CieloZeroAuthFeignClient;
 import br.edu.infnet.thomaspereiraapi.model.domain.*;
+import br.edu.infnet.thomaspereiraapi.model.domain.dto.CreditCardDTO;
 import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.CieloTransactionNotFoundException;
 import br.edu.infnet.thomaspereiraapi.model.domain.exceptions.InvalidCieloTransactionException;
 import br.edu.infnet.thomaspereiraapi.model.domain.repository.CieloPaymentProviderRepository;
@@ -9,7 +11,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
@@ -26,12 +30,14 @@ public class CieloService implements CrudService <CieloTransaction, Integer > {
     private final CieloPaymentProviderRepository cieloPaymentProviderRepository;
     private final SellerService sellerService;
     private final CustomerService customerService;
+    private final CieloZeroAuthFeignClient cieloZeroAuthFeignClient;
 
-    CieloService(CieloTransactionRepository cielotransactionRepository, CieloPaymentProviderRepository cieloPaymentProviderRepository, SellerService sellerService,  CustomerService customerService) {
+    CieloService(CieloTransactionRepository cielotransactionRepository, CieloPaymentProviderRepository cieloPaymentProviderRepository, SellerService sellerService,  CustomerService customerService,  CieloZeroAuthFeignClient cieloZeroAuthFeignClient) {
                 this.cielotransactionRepository = cielotransactionRepository;
                 this.cieloPaymentProviderRepository = cieloPaymentProviderRepository;
                 this.sellerService = sellerService;
                 this.customerService = customerService;
+                this.cieloZeroAuthFeignClient = cieloZeroAuthFeignClient;
     }
 
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -80,6 +86,16 @@ public class CieloService implements CrudService <CieloTransaction, Integer > {
         cielotransaction.setMerchantOrderId(transaction.getMerchantOrderId());
 
         Customer customer = customerService.getByCpf(transaction.getCustomer().getCpf());
+
+        CreditCardDTO  creditCardDTO = new CreditCardDTO();
+        creditCardDTO.copyFromCredicard(cielotransaction.getPayment().getCredicard());
+
+
+        Boolean zeroAuthReturn = cieloZeroAuthFeignClient.checkCieloZeroAuth(creditCardDTO,cieloPaymentProvider.get().getProviderId(), cieloPaymentProvider.get().getProviderKey());
+
+        if (!zeroAuthReturn) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Invalid credcard details.");
+        }
 
         var startDate = LocalDateTime.now();
 

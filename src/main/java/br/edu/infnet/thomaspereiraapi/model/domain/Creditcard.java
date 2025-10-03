@@ -36,7 +36,7 @@ public class Creditcard {
     public String getHolder() {
         return this.holder;
     }
-    public void setHolder(String cardHolderName) {
+    public void setHolder(String holder) {
         this.holder = holder;
     }
     public Integer getSecurityCode() {
